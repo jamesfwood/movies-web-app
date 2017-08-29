@@ -1,0 +1,41 @@
+@import 'base';
+
+.sidePanel {
+    background-color: khaki;
+    width: $listControlsWidth;
+    position: fixed;
+    margin-bottom: 25px;
+
+    .runtime {
+        padding: 10px;
+        background-color: #FACECE;
+        height: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        .sliderContainer {
+            margin-left: 20px;
+            margin-right: 20px;
+            width: 92%;
+
+        }
+    }
+
+    .genreList {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        list-style-type: none;
+        margin-top: 5px;
+        width: 100%;
+        background-color: #F5F6B9;
+
+        .genreItem {
+            background-color: lightgreen;
+            margin: 5px;
+        }
+    }
+}

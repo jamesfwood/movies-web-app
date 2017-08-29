@@ -1,2 +1,2 @@
 # movies-web-app
-Responsive Movies Web App
+Responsive movie web app

@@ -1,0 +1,12 @@
+@import 'base';
+
+.movieDetails {
+    background-color: #121212;
+    color: red;
+    display: flex;
+    flex-wrap: wrap;
+
+    iframe {
+        border: none;
+    }
+}

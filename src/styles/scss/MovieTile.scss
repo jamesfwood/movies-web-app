@@ -1,0 +1,36 @@
+@import 'base';
+
+.movieTile {
+    background-color: #2f2f2f;
+    border-radius: 15px;
+    padding: 5px;
+    margin: 0.2rem;
+    width: $movieTileWidth;
+    transition: all .1s ease-in;
+    
+    .movieImg {
+        width: $movieTileWidth;
+        border-radius: 10px;
+    }
+
+    .movieDetails {
+        background-color: #0f0f0f;
+        color: #e0e0e0
+    }
+
+    .movieSelected {
+        background-color: #aa0000;
+        display: none;
+    }
+
+    &:hover, &:focus {
+
+        transform: scale(1.2);
+        opacity: 1;
+        z-index: 1;
+
+        .movieSelected {
+            display: block;
+        }
+    }
+}

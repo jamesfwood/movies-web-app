@@ -1,0 +1,14 @@
+@import 'base';
+
+.modal {
+    background-color: lightblue;
+
+    .modal-header {
+        background-color: lightcoral;
+    }
+
+    .modal-body {
+        margin: 10% 12% 0 12%; 
+        height: 150px;
+    }
+}
