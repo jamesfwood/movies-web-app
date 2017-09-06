@@ -3,7 +3,8 @@
 const initalState = {
     loading_movies: false,
     nMoviesAcross: 4,
-    user: 'jamesfwood@hotmail.com'
+    user: 'jamesfwood@hotmail.com',
+    tmdbApiKey: ''
 }
 
 const appReducer = (state = initalState, action) => {
@@ -22,7 +23,12 @@ const appReducer = (state = initalState, action) => {
     case 'FETCH_APP_SETTINGS':
         return {
             ...state
+        }
 
+    case 'SET_TMDB_API_KEY':
+        return {
+            ...state,
+            tmdbApiKey: action.key
         }
         
     default:

@@ -7,7 +7,7 @@ const MOVIE_URL = 'https://fqovjplf1b.execute-api.us-west-2.amazonaws.com/prod/m
 
 const MOVIE_APP_URL = 'https://fqovjplf1b.execute-api.us-west-2.amazonaws.com/prod/app';
 
-const IMDB_URL = 'http://localhost:3000/imdb?id=';
+const IMDB_URL = 'http://35.165.93.15:9000/imdb/api/v1.0/movie';
 
 const fetchJson = url => {
   return fetch(url)
@@ -27,6 +27,13 @@ export const getAppSettings = () => {
   return fetchJson(MOVIE_APP_URL)
 }
 
+export const getMovieDetails = (tmdb_id, apiKey) => {
+
+  const url = 'https://api.themoviedb.org/3/movie/' + tmdb_id + '?api_key=' + apiKey + '&language=en-US'
+
+  return fetchJson(url)
+}
+
 export const getVideoDetails = (tmdb_id, apiKey) => {
 
   const url = 'https://api.themoviedb.org/3/movie/' + tmdb_id + '/videos?api_key=' + apiKey + '&language=en-US'
@@ -44,7 +51,7 @@ export const getList = () => {
 //      if (res.data.cod && res.data.Items[1].tmdb_id) {
   //      throw new Error(res.data.message);
   //    } else {
-        console.log("Called MoviesApi:getList", res.data);
+        console.log("Called moviesApi:getList", res.data);
 
         return res.data;
   //    }
@@ -53,6 +60,17 @@ export const getList = () => {
     });
   }
 
+export const getMovie = (filename) => {
+
+  const encFilename = encodeURIComponent(filename);
+  const requestUrl = `${MOVIE_URL}/${encFilename}`;
+
+  console.log("Called moviesApi:getMovie", filename);
+
+  return fetchJson(requestUrl)
+}
+
+/*
 export const getMovie = (filename) =>  {
     var encFilename = encodeURIComponent(filename);
     var requestUrl = `${MOVIE_URL}/${encFilename}`;
@@ -66,9 +84,19 @@ export const getMovie = (filename) =>  {
       throw new Error(res.data.message);
     });
   }
+*/
 
 export const getImdb = (imdb_id) => {
-    var requestUrl = IMDB_URL + imdb_id;
+
+  const requestUrl = `${IMDB_URL}/${imdb_id}`
+
+  console.log("Called moviesApi:getImdb", imdb_id);
+
+  return fetchJson(requestUrl)
+}
+
+export const getImdb2 = (imdb_id) => {
+    const requestUrl = `${IMDB_URL}/${imdb_id}`;
 
     return axios.get(requestUrl).then(function (res) {
 
@@ -89,9 +117,9 @@ export const updateTheMovieDbIDs = (filename, imdb, tmdb) => {
     var requestUrl = MOVIE_URL;
 
     var body = {
-    filename,
-    imdb,
-    tmdb
+      filename,
+      imdb,
+      tmdb
     };
 
     return axios.put(requestUrl, body).then( res => {

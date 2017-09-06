@@ -11,6 +11,15 @@ import './styles/css/ListControls.css'
 
 import store from './store'
 
+function convertMins(mins) {
+
+    var minutes = Math.floor(mins % 60)
+    mins /= 60
+    var hours = Math.floor(mins)
+
+    return hours + "h " + minutes + "min";
+}
+
 class ListControls extends React.Component {
 
     openRuntimeModal = () => {
@@ -26,7 +35,7 @@ class ListControls extends React.Component {
     }
 
     render() {
-        const { filters, changeSortOrder, sortBy } = this.props
+        const { filters, changeSortOrder, sortBy, sortByValue, movieCount } = this.props
 
         
         return (
@@ -40,10 +49,10 @@ class ListControls extends React.Component {
                 <h3>{filters.sortOrder}</h3>
                 <hr/>
                 <div>Sort By
-                    <select onChange={ e => sortBy(e.target.value)}>
+                    <select value={sortByValue} onChange={ e => sortBy(e.target.value)}>
                         { 
                             filters.sortTypes.map( s => 
-                            <option key={s.value} value={s.value}>{s.name}</option>)
+                                <option key={s.value} value={s.value}>{s.name}</option>)
                         }
                     </select>
                 </div>
@@ -68,10 +77,13 @@ class ListControls extends React.Component {
                 </div>
                 <hr/>
                 <div className='runtime'>Runtime
+                    <div>[{convertMins(filters.runtimeRange[0])} to {convertMins(filters.runtimeRange[1])}]</div>
                     <button type="button" onClick={this.openRuntimeModal}>Filter...</button> 
                 </div>
                 <hr/>
                 <div>
+                    <a>Movie Count: {movieCount}</a>
+                    <hr/>
                     <a>Movie App</a>
                 </div>
             </section>
@@ -80,9 +92,12 @@ class ListControls extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    filters: state.filters
-  }
+
+    return {
+        filters: state.filters,
+        movieCount: state.movies.length,
+        sortByValue: state.filters.sortBy
+    }
 }
 
 const mapDispatchToProps = dispatch => {

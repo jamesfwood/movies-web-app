@@ -52,7 +52,7 @@ const sortBudgetDesc = (a, b) => {
 const getVisibleMovies = (movies, filters) => {
 
     let movieList = movies.filter(m => {
-        return m.imdb !== undefined
+        return m.imdb
     })
 
     movieList = movieList.filter(m => (m.duration / 1000 / 60) >= filters.runtimeRange[0] && (m.duration / 1000 / 60) <= filters.runtimeRange[1]);

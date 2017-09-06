@@ -9,11 +9,11 @@ class MovieDetails extends React.Component {
     
     componentDidMount() {
 
-        const {dispatch, movie} = this.props;
+        const {dispatch, movie, apiKey} = this.props
 
         if (movie && !movie.videos) {
 
-            dispatch(fetchVideos(movie.tmdb.id))
+            dispatch(fetchVideos(movie.tmdb.id, apiKey))
         }
     }
 
@@ -70,7 +70,8 @@ const mapStateToProps = (state, {match}) => {
     const filename = decodeURIComponent(match.params.filename);
 
   return {
-    movie: state.movies.find(m => m.filename === filename)
+    movie: state.movies.find(m => m.filename === filename),
+    apiKey: state.app.tmdbApiKey
   }
 }
 

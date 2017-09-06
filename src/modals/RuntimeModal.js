@@ -177,9 +177,11 @@ const mapStateToProps = state => {
             max = state.movies[i].duration
     }
 
+    max = Math.round(max / 1000 / 60)
+
   return {
     filters: state.filters,
-    maxMinutes: Math.round(max / 1000 / 60) + 10
+    maxMinutes: max + max % 15
   }
 }
 

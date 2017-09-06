@@ -1,0 +1,19 @@
+
+
+.unmatchedList {
+    color: #FF0C0C;
+    background-color: #202020;
+    text-align: left;
+    margin: 30px;
+
+    .unmatchedTile {
+        display: flex;
+        color: #f0f0f0;
+    }
+
+    a {
+        text-decoration: none;
+        color: #1090cc;
+        line-height: 200%;
+    }
+}

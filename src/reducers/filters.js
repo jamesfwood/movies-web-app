@@ -35,8 +35,8 @@ const filtersDefault = {
     sortOrder: 'asc',   // asc, desc
     runtimeRange: [0, 500],
     genres,
-   // genreList: genres,
-    sortTypes
+    sortTypes,
+    movieCount: 0
 }
 
 // Filters:
@@ -77,7 +77,14 @@ const filtersReducer = (state = filtersDefault, action) => {
                 ...state,
                 genres
             }
-        
+        /*
+        case 'UPDATE_FILTERED_MOVIE_COUNT':
+
+            return {
+                ...state,
+                movieCount: action.count
+            }
+*/
         case 'UPDATE_ALL_GENRES':
 
             let g = state.genres.slice()

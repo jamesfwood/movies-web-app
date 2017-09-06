@@ -10,6 +10,13 @@ export const fetchMovies = () => {
   }
 }
 
+export const addMovie = (movie) => {
+  return {
+    type: 'ADD_MOVIE',
+    movie
+  }
+}
+
 export const addMovies = (movies) => {
   return {
     type: 'ADD_MOVIES',
@@ -17,11 +24,18 @@ export const addMovies = (movies) => {
   };
 }
 
+export const setTmdbApiKey = (key) => {
+  return {
+    type: 'SET_TMDB_API_KEY',
+    key
+  }
+}
 
-export const fetchVideos = tmdb_id => {
+export const fetchVideos = (tmdb_id, tmdbApiKey) => {
   return {
     type: 'FETCH_VIDEOS',
-    tmdb_id
+    tmdb_id,
+    tmdbApiKey
   }
 }
 
@@ -45,6 +59,15 @@ export const updateGenre = (name, display) => {
         type: 'UPDATE_GENRE',
         name,
         display
+    }
+}
+
+export var updateMovie = (filename, imdb, tmdb) => {
+    return {
+        type: 'UPDATE_MOVIE',
+        filename,
+        imdb,
+        tmdb
     }
 }
 

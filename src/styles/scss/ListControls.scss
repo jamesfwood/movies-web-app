@@ -1,15 +1,15 @@
 @import 'base';
 
 .sidePanel {
-    background-color: khaki;
+    background-color: grey;
     width: $listControlsWidth;
     position: fixed;
     margin-bottom: 25px;
 
     .runtime {
+        color: #b0b0b0;
         padding: 10px;
-        background-color: #FACECE;
-        height: 50px;
+        background-color: #1F1E1E;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -31,10 +31,11 @@
         list-style-type: none;
         margin-top: 5px;
         width: 100%;
-        background-color: #F5F6B9;
+        background-color: #202020;
 
         .genreItem {
-            background-color: lightgreen;
+            color: #79D945;
+            background-color: rgba(128, 126, 126, 0.30);
             margin: 5px;
         }
     }

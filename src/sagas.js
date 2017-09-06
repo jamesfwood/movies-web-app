@@ -1,11 +1,52 @@
-import { put, takeLatest, call } from 'redux-saga/effects'
-import { getList, getVideoDetails, getAppSettings } from './api/moviesApi'
-import { addMovies, addVideos } from './actions/'
+import { put, takeLatest, call, all } from 'redux-saga/effects'
+import { getList, getMovie, getVideoDetails, getAppSettings } from './api/moviesApi'
+import { addMovies, addMovie, addVideos, setTmdbApiKey } from './actions/'
 
 function* fetchMovies () {
   try {
-    const data = yield getList()
-    yield put(addMovies(data))
+    const [data, app] = yield all([getList(), call(getAppSettings)])
+
+    yield put(setTmdbApiKey(app[0].tmdbApiKey))
+
+    let movies = []
+
+    for (const item of data) {
+      const movie = JSON.parse(localStorage.getItem(item.filename))
+
+      if (movie) {
+        
+        if (item.updated === movie.updated) {
+
+          movies.push(movie)
+        }
+        else {
+          const movie = yield getMovie(item.filename)
+
+          if (movie.filename) {
+            localStorage.setItem(movie.filename, JSON.stringify(movie))
+
+            yield put(addMovie(movie))
+          }
+          else {
+            console.log("error fetching movie", item, movie)
+          }
+        }
+      }
+      else {
+          const movie = yield getMovie(item.filename)
+
+          if (movie.filename) {
+            localStorage.setItem(movie.filename, JSON.stringify(movie))
+
+            yield put(addMovie(movie))
+          }
+          else {
+            console.log("error fetching movie", item, movie)
+          }
+      }
+    }
+
+    yield put(addMovies(movies))
   } catch (e) {
       console.log("fetchMovies error", e)
     yield put(addMovies([]))
@@ -14,11 +55,7 @@ function* fetchMovies () {
 
 function* fetchVideos (action) {
   try {
-    const app = yield call(getAppSettings)
-
-    console.log('appSettings', app)
-
-    const data = yield call(getVideoDetails, action.tmdb_id, app[0].tmdbApiKey)
+    const data = yield call(getVideoDetails, action.tmdb_id, action.tmdbApiKey)
     yield put(addVideos(action.tmdb_id, data.results))
   } catch (e) {
       console.log("fetchVideos error", e)

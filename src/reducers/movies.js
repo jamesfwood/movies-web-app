@@ -10,6 +10,11 @@ const moviesReducer = (state = [], action) => {
                 } 
                 : movie
             )
+    case 'ADD_MOVIE':
+            return [
+                ...state,
+                action.movie
+            ]
     case 'ADD_MOVIES':
       return [
         ...state,
@@ -25,6 +30,20 @@ const moviesReducer = (state = [], action) => {
                 } 
                 : movie
             )
+    case 'UPDATE_MOVIE':
+        return state.map((movie) => {
+            if (movie.filename === action.filename) {
+
+                return {
+                    ...movie,
+                    imdb: action.imdb,
+                    tmdb: action.tmdb
+                }
+            }
+            else {
+                return movie;
+            }
+        });
     default:
       return state;
   }
