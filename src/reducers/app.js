@@ -4,11 +4,17 @@ const initalState = {
     loading_movies: false,
     nMoviesAcross: 4,
     user: 'jamesfwood@hotmail.com',
-    tmdbApiKey: ''
+    tmdbApiKey: '',
+    showControlPanel: false
 }
 
 const appReducer = (state = initalState, action) => {
   switch (action.type) {
+    case 'SHOW_CONTROL_PANEL':
+        return {
+            ...state,
+            showControlPanel: action.display
+        }
     case 'FETCH_MOVIES':
         return {
                     ...state,

@@ -1,3 +1,10 @@
+export const displayControlPanel = (display) => {
+  return {
+    type: 'SHOW_CONTROL_PANEL',
+    display
+  }
+}
+
 export const fetchAppSettings = () => {
   return {
     type: 'FETCH_APP_SETTINGS'
@@ -7,6 +14,12 @@ export const fetchAppSettings = () => {
 export const fetchMovies = () => {
   return {
     type: 'FETCH_MOVIES'
+  }
+}
+
+export const clearList = () => {
+  return {
+    type: 'CLEAR_LIST'
   }
 }
 

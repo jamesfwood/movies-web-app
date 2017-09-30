@@ -6,6 +6,9 @@ function* fetchMovies () {
   try {
     const [data, app] = yield all([getList(), call(getAppSettings)])
 
+    localStorage.setItem('movies-list', JSON.stringify(data))
+    localStorage.setItem('movies-app-settings', JSON.stringify(app))
+    
     yield put(setTmdbApiKey(app[0].tmdbApiKey))
 
     let movies = []

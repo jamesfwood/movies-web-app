@@ -44,6 +44,8 @@ const moviesReducer = (state = [], action) => {
                 return movie;
             }
         });
+    case 'CLEAR_LIST':
+        return []
     default:
       return state;
   }

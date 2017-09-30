@@ -10,6 +10,7 @@ import '../styles/css/modal.css'
 import '../styles/css/OnOffSwitch.css'
 import '../styles/css/GenreModal.css'
 
+/*
 // left: 37, up: 38, right: 39, down: 40,
 // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
 var keys = {37: 1, 38: 1, 39: 1, 40: 1};
@@ -45,7 +46,7 @@ function enableScroll() {
     window.ontouchmove = null;  
     document.onkeydown = null;  
 }
-
+*/
 
 
 
@@ -71,7 +72,7 @@ class MyModal extends React.Component{
 
     componentDidMount() {
 
-        disableScroll()
+    //    disableScroll()
 
     }
 
@@ -79,7 +80,7 @@ class MyModal extends React.Component{
     {
         console.log("destroying modal")
 
-        enableScroll()
+     //   enableScroll()
 
     }
 
@@ -91,9 +92,9 @@ class MyModal extends React.Component{
             onRequestClose={onRequestClose}
             effect={Effect.ScaleUp}
             >
-            <div className="modal">
-                <div className="modal-header">Close</div>
-                <div className="modal-body">
+            <div className="modal2">
+                <div className="modal2-header">Close</div>
+                <div className="modal2-body">
                     <div>
                     <button onClick={() => this.handleGenreOnOff(true)}>Set All ON</button>
                     <button onClick={() => this.handleGenreOnOff(false)}>Set All OFF</button>

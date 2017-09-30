@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {withRouter} from 'react-router-dom'
 
 import './styles/css/MovieTile.css';
@@ -18,8 +17,6 @@ function convertMillis(millis) {
 
 const MovieTile = ({movie, history}) => {
     
-    //const movie = props;
-
     const runtime = convertMillis(movie.duration);
     let mpaa = "Not Rated";
 
@@ -53,13 +50,5 @@ const MovieTile = ({movie, history}) => {
         </article>
     )
 }
- 
-/*
-const mapDispatchToProps = dispatch => bindActionCreators({
-  changePage: url => push(url)
-}, dispatch)
-
-export default connect(null, mapDispatchToProps)(MovieTile)
-*/
 
 export default withRouter(MovieTile);

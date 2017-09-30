@@ -24,6 +24,8 @@ const fetchJson = url => {
 
 export const getAppSettings = () => {
 
+  console.log("Called moviesApi:getAppSettings")
+
   return fetchJson(MOVIE_APP_URL)
 }
 
@@ -51,7 +53,7 @@ export const getList = () => {
 //      if (res.data.cod && res.data.Items[1].tmdb_id) {
   //      throw new Error(res.data.message);
   //    } else {
-        console.log("Called moviesApi:getList", res.data);
+        console.log("Called moviesApi:getList", res.data)
 
         return res.data;
   //    }
@@ -94,23 +96,6 @@ export const getImdb = (imdb_id) => {
 
   return fetchJson(requestUrl)
 }
-
-export const getImdb2 = (imdb_id) => {
-    const requestUrl = `${IMDB_URL}/${imdb_id}`;
-
-    return axios.get(requestUrl).then(function (res) {
-
-//      if (res.data.cod && res.data.Items[1].tmdb_id) {
-  //      throw new Error(res.data.message);
-  //    } else {
-        console.log("Called MoviesApi:getImdb", res.data);
-
-        return res.data;
-  //    }
-    }, function (res) {
-      throw new Error(res.data.message);
-    });
-  }
 
 export const updateTheMovieDbIDs = (filename, imdb, tmdb) => {
 

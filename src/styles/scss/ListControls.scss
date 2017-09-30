@@ -1,23 +1,143 @@
 @import 'base';
 
+.modalWindow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 99999;
+    opacity:0.0;
+    pointer-events: none;
+    //text-align:center;
+    transform: scale(1.1, 1.1);
+    transition: 100ms ease-out;
+
+    #body { /* ...or body.dialogShowing */
+        overflow-y: hidden;
+      }
+    
+        .modalContainer {
+            background-color: red;
+        }
+    }
+
+    .modalWindow:target {
+    opacity:1;
+    pointer-events: auto;
+    
+    transition: 300ms ease-out;
+    transform: scale(1.0, 1.0);
+    }
+
+    .modalWindow > div {
+    width: 700px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    //padding: 2% 2%;
+    background: rgb(251, 255, 0);
+    box-shadow: 0 12px 18px 0 rgba(0,0,0,0.4),0 6px 20px 0 rgba(0,0,0,0.4);
+    transform: translate(-50%, -50%);
+    }
+
+
+/*
+top                   : '50%',
+left                  : '50%',
+right                 : 'auto',
+bottom                : 'auto',
+marginRight           : '-50%',
+transform             : 'translate(-50%, -50%)',
+*/
 .sidePanel {
-    background-color: grey;
+    background-color: #2C2C2C;
     width: $listControlsWidth;
     position: fixed;
-    margin-bottom: 25px;
+    height: 100%;
 
-    .runtime {
-        color: #b0b0b0;
-        padding: 10px;
-        background-color: #1F1E1E;
+    .title {
+        font-size: 1.3em;
+        color: #DADADA;
+        background-color: rgba(30, 135, 255, 0.4);
+        border-radius: 5px;
+        padding: 2px 30px;
+    }
+
+    .sortPanel {
+        background-color: $listSubpanelColor;
+        border-radius: 10px;
+        padding: 5px 0px;
+        margin-top: 2px;
+
+        .active {
+            color: yellow;
+            font-size: 1.3em;
+
+        }
+
+        .sortOrder {
+            display: flex;
+            justify-content: center;
+            padding: 5px;
+
+            a {
+                margin: 5px;
+                padding: 5px 0px;
+            }
+        }
+
+        .sortBy {
+            margin-top: 8px;
+        }
+    }
+
+    .genrePanel {
+        background-color: $listSubpanelColor;
+        border-radius: 15px;
+        padding: 5px 0px;
+        margin: 5px 0px;
+    }
+
+    .statsPanel {
+        background-color: $listSubpanelColor;
+        margin: 5px 0px;
+        padding: 4px 0px;
+        border-radius: 15px;
+    }
+
+    .updatePanel {
+        background-color: $listSubpanelColor;
+        margin: 5px 0px;
+        padding: 2px 0px;
+        border-radius: 15px;
+    }
+
+    .closeIcon {
+        background: url(../../images/red-x.svg) no-repeat center;
+        background-size: contain;
+        //position: absolute;
+        right: 0px;
+        //float: right;
+        //display: inline-block;
+        height: 45px;
+        width: 40px;
+    }
+
+    .runtimePanel {
+        padding: 5px 0px;
+        background-color: $listSubpanelColor;
         display: flex;
         flex-direction: column;
         align-items: center;
+        border-radius: 15px;
         
         .sliderContainer {
-            margin-left: 20px;
+            margin-left: 40px;
             margin-right: 20px;
-            width: 92%;
+            width: 82%;
+            background-color: pink;
 
         }
     }
@@ -31,12 +151,14 @@
         list-style-type: none;
         margin-top: 5px;
         width: 100%;
-        background-color: #202020;
+        background-color: #585858;
 
         .genreItem {
             color: #79D945;
             background-color: rgba(128, 126, 126, 0.30);
-            margin: 5px;
+            border-radius: 4px;
+            padding: 3px;
+            margin: 3px;
         }
     }
 }

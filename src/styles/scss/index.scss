@@ -5,11 +5,19 @@ html {
   box-sizing: border-box;
 }
 
+.ReactModal__Body--open {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: #F0F0F0;
+  background-color: #545454;
+
+  .no-scroll {
+    overflow-y: hidden;
+  }
 }
 
 .container {

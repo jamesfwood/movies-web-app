@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 
 import store, { history } from './store'
-import { fetchMovies } from './actions/'
+import { fetchMovies, setTmdbApiKey, addMovies } from './actions/'
 
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
@@ -20,7 +20,34 @@ store.subscribe( () => {
 });
 
 
-store.dispatch(fetchMovies())
+const loadMovies = () => {
+
+  const list = JSON.parse(localStorage.getItem('movies-list'))
+  const app = JSON.parse(localStorage.getItem('movies-app-settings'))
+
+  if (list && app) {
+    store.dispatch(setTmdbApiKey(app[0].tmdbApiKey))
+
+    let movies = []
+
+    for (const item of list) {
+      const movie = JSON.parse(localStorage.getItem(item.filename))
+
+      if (movie) {
+        movies.push(movie)
+        }
+    
+    }
+
+    store.dispatch(addMovies(movies))
+  }
+  else {
+    store.dispatch(fetchMovies())
+  }
+}
+
+
+loadMovies()
 
 render(
   <Provider store={store}>

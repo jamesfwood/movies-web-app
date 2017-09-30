@@ -3,18 +3,24 @@ import Watchlist from './Watchlist'
 
 const sortTitleAsc = (a, b) => {
 
-    if (a.imdb.title === b.imdb.title)
+    const titleA = a.imdb.title.replace(/^(The )/, '')
+    const titleB = b.imdb.title.replace(/^(The )/, '')
+
+    if (titleA === titleB)
         return a.imdb.year - b.imdb.year;
 
-    return a.imdb.title.toLowerCase() < b.imdb.title.toLowerCase() ? -1 : 1;
+    return titleA.toLowerCase() < titleB.toLowerCase() ? -1 : 1;
 }
 
 const sortTitleDesc = (a, b) => {
 
-    if (a.imdb.title === b.imdb.title)
+    const titleA = a.imdb.title.replace(/^(The )/, '')
+    const titleB = b.imdb.title.replace(/^(The )/, '')
+
+    if (titleA === titleB)
         return b.imdb.year - a.imdb.year;
 
-    return b.imdb.title.toLowerCase() < a.imdb.title.toLowerCase() ? -1 : 1;
+    return titleB.toLowerCase() < titleA.toLowerCase() ? -1 : 1;
 }
 
 const sortReleaseDateAsc = (a, b) => {
@@ -51,26 +57,27 @@ const sortBudgetDesc = (a, b) => {
 
 const getVisibleMovies = (movies, filters) => {
 
-    let movieList = movies.filter(m => {
-        return m.imdb
-    })
+    const movieList = movies.filter( m => {
 
-    movieList = movieList.filter(m => (m.duration / 1000 / 60) >= filters.runtimeRange[0] && (m.duration / 1000 / 60) <= filters.runtimeRange[1]);
+        if (!m.imdb) return false
 
-    movieList = movieList.filter(m => {
+        if (m.duration / 1000 / 60 < filters.runtimeRange[0]) return false
+        
+        if (Math.floor(m.duration / 1000 / 60) > filters.runtimeRange[1]) return false
+
         for (const g of filters.genres) {
-
+            
             if (!g.display)
                 continue
 
-            for (const mg of m.imdb.genres) {
-                if (g.name === mg) {
-                    return true;
+            for (const genre of m.imdb.genres) {
+                if (g.name === genre) {
+                    return true
                 }
             }
         }
 
-        return false;
+        return false
     })
 
     let sortfunc = sortTitleAsc;

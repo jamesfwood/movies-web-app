@@ -152,9 +152,9 @@ class MyModal extends React.Component{
             onRequestClose={onRequestClose}
             effect={Effect.ScaleUp}
             >
-            <div className="modal">
-                <div className="modal-header">Close</div>
-                <div className="modal-body">
+            <div className="modal2">
+                <div className="modal2-header">Close</div>
+                <div className="modal2-body">
                     <hr/>
                     <div className='noUiSlider sliderContainer' id='slider'/>
                     
