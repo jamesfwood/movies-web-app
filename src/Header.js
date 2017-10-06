@@ -13,10 +13,10 @@ const Header = () => (
                     <h3>Movies Web App</h3>
                 </div>
                 <ul className="navbar">
-                    <li><NavLink exact to='/' activeStyle={{ fontWeight: 'bold', color: 'red' }}>Home</NavLink></li>
-                    <li><NavLink exact to='/watchlist' activeStyle={{ fontWeight: 'bold', color: 'red' }}>Watchlist</NavLink></li>
-                    <li><NavLink to='/unmatched' activeStyle={{ fontWeight: 'bold', color: 'red' }}>Unmatched List</NavLink></li>
-                    <li><NavLink to='/about' activeStyle={{ fontWeight: 'bold', color: 'red' }}>About</NavLink></li>
+                    <li><NavLink exact to='/' activeClassName="active">Home</NavLink></li>
+                    <li><NavLink exact to='/watchlist' activeClassName="active">Watchlist</NavLink></li>
+                    <li><NavLink to='/unmatched' activeClassName="active">Unmatched List</NavLink></li>
+                    <li><NavLink to='/settings' activeClassName="active">Settings</NavLink></li>
                 </ul>
             </div>
         </nav>

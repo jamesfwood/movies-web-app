@@ -56,25 +56,45 @@ transform             : 'translate(-50%, -50%)',
     width: $listControlsWidth;
     position: fixed;
     height: 100%;
+    color: #E6E6E6;
 
     .title {
-        font-size: 1.3em;
-        color: #DADADA;
-        background-color: rgba(30, 135, 255, 0.4);
-        border-radius: 5px;
-        padding: 2px 30px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: $blue;
+        margin-bottom: 2px;
+        //background: blue;
+        //: rgba(30, 135, 255, 0.4);
+        //border-radius: 5px;
+        //padding: 2px 30px;
     }
 
     .sortPanel {
-        background-color: $listSubpanelColor;
-        border-radius: 10px;
+        border-style: solid;
+        background: linear-gradient(to bottom, #313131, $listSubpanelColor);
+        border-radius: 15px;
+        border-width: 2px;
+        border-color: #B6B6B6;
+        
         padding: 5px 0px;
         margin-top: 2px;
+
+        .sortItem {
+            border-style: solid;
+            border-radius: 10px;
+            border-color: #222222;
+            border-width: 2px;
+            margin: 3px;
+            padding: 2px;
+            background: #464646;
+        }
 
         .active {
             color: yellow;
             font-size: 1.3em;
+            border-color: green;
 
+            background: black;
         }
 
         .sortOrder {
@@ -94,44 +114,82 @@ transform             : 'translate(-50%, -50%)',
     }
 
     .genrePanel {
-        background-color: $listSubpanelColor;
+        border-style: solid;
+        background: linear-gradient(to bottom, #313131, $listSubpanelColor);
         border-radius: 15px;
+        border-width: 2px;
+        border-color: #B6B6B6;
+        
         padding: 5px 0px;
         margin: 5px 0px;
     }
 
     .statsPanel {
-        background-color: $listSubpanelColor;
-        margin: 5px 0px;
-        padding: 4px 0px;
+        border-style: solid;
+        background: linear-gradient(to bottom, #313131, $listSubpanelColor);
         border-radius: 15px;
+        border-width: 2px;
+        border-color: #B6B6B6;
+        
+        padding: 5px 0px;
+        margin: 5px 0px;
     }
 
-    .updatePanel {
-        background-color: $listSubpanelColor;
-        margin: 5px 0px;
-        padding: 2px 0px;
+    
+    .closePanel {
+        border-style: solid;
+        background: linear-gradient(to bottom, #313131, $listSubpanelColor);
         border-radius: 15px;
+        border-width: 2px;
+        border-color: #B6B6B6;
+        
+        padding: 5px 0px;
+        margin: 5px 0px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .closeIcon {
+            border-style: solid;
+            border-color: #D8D8D8;
+            border-radius: 10px;
+            border-width: 2px;
+            background: url(../../images/red-x.svg) no-repeat center;
+            background-size: contain;
+            //position: absolute;
+            right: 0px;
+            //float: right;
+            //display: inline-block;
+            height: 45px;
+            width: 40px;
+        }
+
+        .closeText {
+            margin-left: 12px;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
     }
 
-    .closeIcon {
-        background: url(../../images/red-x.svg) no-repeat center;
-        background-size: contain;
-        //position: absolute;
-        right: 0px;
-        //float: right;
-        //display: inline-block;
-        height: 45px;
-        width: 40px;
-    }
+    
+
+
 
     .runtimePanel {
-        padding: 5px 0px;
-        background-color: $listSubpanelColor;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        border-style: solid;
+        background: linear-gradient(to bottom, #313131, $listSubpanelColor);
         border-radius: 15px;
+        border-width: 2px;
+        border-color: #B6B6B6;
+        
+        padding: 5px 0px;
+        margin: 5px 0px;
+
+        .runtime {
+            padding: 5px;
+            color: #FFFED6;
+        }
         
         .sliderContainer {
             margin-left: 40px;
@@ -140,6 +198,14 @@ transform             : 'translate(-50%, -50%)',
             background-color: pink;
 
         }
+    }
+
+    .displayAll {
+        text-align: center;
+        color: #FFFED6;
+        font-weight: bold;
+        font-size: 1.2rem;
+        padding-top: 4px;
     }
 
     .genreList {
@@ -151,10 +217,10 @@ transform             : 'translate(-50%, -50%)',
         list-style-type: none;
         margin-top: 5px;
         width: 100%;
-        background-color: #585858;
+        //background-color: #585858;
 
         .genreItem {
-            color: #79D945;
+            color: #FFFED6;
             background-color: rgba(128, 126, 126, 0.30);
             border-radius: 4px;
             padding: 3px;

@@ -1,19 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { withRouter } from 'react-router-dom'
+//import { withRouter } from 'react-router-dom'
 //import { ModalManager } from 'react-dynamic-modal'
 
 import { changeSortOrder, sortBy, displayControlPanel, fetchMovies, clearList } from './actions/'
 
-//import RuntimeModal from './modals/RuntimeModal'
+import { Button } from './Buttons'
+
 import RuntimeDialog from './modals/RuntimeDialog'
-//import GenreModal from './modals/GenreModal'
 import GenreDialog from './modals/GenreDialog'
 
 import './styles/css/ListControls.css'
-
-//import store from './store'
 
 function convertMins(mins) {
 
@@ -37,12 +35,6 @@ class ListControls extends React.Component {
       }
       */
 
-      updateWatchlist = () => {
-        const {clearList, updateList} = this.props
-        
-        clearList()
-        updateList()
-      }
 /*
 
       handleOpenModal () {
@@ -81,7 +73,7 @@ class ListControls extends React.Component {
             }
 */
 
-    openModal = () => {
+    openGenreModal = () => {
         const modal = document.getElementById('genreModal');
         
         modal.style.display = 'block'
@@ -123,7 +115,7 @@ class ListControls extends React.Component {
     }
 
 
-    openModal2 = () => {
+    openRuntimeModal = () => {
         const modal = document.getElementById('runtimeModal');
         
         modal.style.display = 'block'
@@ -170,18 +162,62 @@ class ListControls extends React.Component {
     render() {
         const { filters, changeSortOrder, sortBy, sortByValue, movieCount } = this.props
         
+        let displayAll = true
+
+        for (const genre of filters.genres) {
+            if (!genre.display) {
+                displayAll = false;
+                break;
+            }
+        }
+
+        const displayRuntimeRange = () => {
+
+            const { runtimeRange } = this.props
+            
+            if (filters.runtimeRange[0] < runtimeRange.min) {
+
+                if (filters.runtimeRange[1] > runtimeRange.max) {
+                    return (
+                        <div className="displayAll">All</div>
+                    )
+                }
+                else {
+                    return (
+                        <div className="runtime">
+                            ≤ {convertMins(filters.runtimeRange[1])}
+                        </div>
+                    )
+                }
+            }
+            else if (filters.runtimeRange[1] > runtimeRange.max) {
+                return (
+                    <div className="runtime">
+                        ≥ {convertMins(filters.runtimeRange[0])}
+                    </div>
+                )
+            }
+
+            return (
+                <div className="runtime">{convertMins(filters.runtimeRange[0])} to {convertMins(filters.runtimeRange[1])}</div>
+            )
+        }
+
         return (
             <section className="sidePanel">
 
                 <GenreDialog/>
                 <RuntimeDialog/>
-                <div className="closeIcon" onClick={this.handleHideControlPanel}></div>
+                <div className="closePanel">
+                    <div className="closeIcon" onClick={this.handleHideControlPanel}></div>
+                    <div className="closeText">Hide Panel</div>
+                </div>
                 <div className="sortPanel">
                     
-                    <div><span className="title">Sort Order</span></div>
+                    <div className="title">Sort Order</div>
                     <div className="sortOrder">
-                        <div className={ filters.sortOrder === 'asc' ? 'active' : ''}><a onClick={() => changeSortOrder('asc')}>Ascending</a></div>
-                        <div className={ filters.sortOrder === 'desc' ? 'active' : ''}><a onClick={() => changeSortOrder('desc')}>Descending</a></div>
+                        <div className={ filters.sortOrder === 'asc' ? 'sortItem active' : 'sortItem'}><a onClick={() => changeSortOrder('asc')}>Ascending</a></div>
+                        <div className={ filters.sortOrder === 'desc' ? 'sortItem active' : 'sortItem'}><a onClick={() => changeSortOrder('desc')}>Descending</a></div>
                     </div>
 
                     <div className="sortBy">Sort By
@@ -195,37 +231,38 @@ class ListControls extends React.Component {
                 </div>
                 
                 <div className="genrePanel">
-                    <span className="title">Displaying Genres</span>
-                    <ul className='genreList'>
+                    <div className="title">Displaying Genres</div>
                     {
-                        filters.genres.map( g => 
-                            {
-                                if (g.display) {
-                                    return (<li className='genreItem' key={g.name} >{g.name}</li>)
-                                }
+                        displayAll === true ? <div className='displayAll'>All</div> :
+                            <ul className='genreList'>
+                                {
+                                filters.genres.map( g => 
+                                    {
+                                        if (g.display) {
+                                            return (<li className='genreItem' key={g.name} >{g.name}</li>)
+                                        }
 
-                                return (<div key={g.name}></div>)
-                            }
-                            
-                        )
+                                        return (<div key={g.name}></div>)
+                                    }
+                                
+                                )
+                                }
+                            </ul>
                     }
-                    </ul>
-                    <button type="button" onClick={this.openModal}>Filter...</button>
+                    <Button text={'Filter Genres'} onClick={this.openGenreModal} />
                 </div>
 
                 <div className='runtimePanel'>
-                    <span className="title">Runtime</span>
-                    <div>{convertMins(filters.runtimeRange[0])} to {convertMins(filters.runtimeRange[1])}</div>
-                    <button type="button" onClick={this.openModal2}>Filter...</button> 
+                    <div className="title">Runtime Range</div>
+                    { displayRuntimeRange() }
+                    <Button text={'Filter Runtime'} onClick={this.openRuntimeModal} />
                 </div>
 
                 <div className="statsPanel">
-                <span className="title">Movie Count: {movieCount}</span>
+                    <div className="title">Stats</div>
+                    <div>Movie Count: {movieCount}</div>
                 </div>
 
-                <div className="updatePanel">
-                    <button type="button" onClick={this.updateWatchlist}>Update List</button>
-                </div>
             </section>
         )
     }
@@ -233,7 +270,20 @@ class ListControls extends React.Component {
 
 const mapStateToProps = state => {
 
+    let range = { min: Number.MAX_VALUE, max: 0 }
+    
+    for (const movie of state.movies) {
+        if (movie.duration > range.max)
+            range.max = movie.duration
+        if (movie.duration < range.min)
+            range.min = movie.duration
+    }
+
+    range.min = Math.floor(range.min / 1000 / 60)
+    range.max = Math.ceil(range.max / 1000 / 60)
+
     return {
+        runtimeRange: range,
         filters: state.filters,
         sortByValue: state.filters.sortBy
     }
@@ -259,4 +309,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListControls))
+export default connect(mapStateToProps, mapDispatchToProps)(ListControls)

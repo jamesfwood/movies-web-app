@@ -9,6 +9,8 @@ import nouislider from 'nouislider'
 
 import '../styles/css/modal.css'
 
+import '../styles/css/RuntimeModal.css'
+
 import 'nouislider/distribute/nouislider.min.css'
 import '../styles/css/noUiSlider.css'
 
@@ -110,13 +112,13 @@ class RuntimeDialog extends React.Component {
                         </div>
                         <div className="modal-body">
                         
-                 
-                        <div className='noUiSlider sliderContainer' id='slider'/>
-                       
+                        <div className="runtimeContainer">
+                            <div className='noUiSlider sliderContainer' id='slider'/>
+                        </div>
 
                         </div>
                         <div className="modal-footer">
-                        <h3>Set Runtime Range</h3>
+                        <h3>Set Runtime Range to Display</h3>
                         </div>
                     </div>
 

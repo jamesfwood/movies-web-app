@@ -5,6 +5,7 @@ import VisibleWatchlist from './VisibleWatchlist'
 import MovieDetails from './MovieDetails'
 import Unmatched from './Unmatched'
 import MatchMovie from './MatchMovie'
+import Settings from './Settings'
 import NotFound from './NotFound'
 
 const Main = () => (
@@ -15,6 +16,7 @@ const Main = () => (
       <Route exact path='/match/:filename' component={MatchMovie}/>
       <Route exact path='/movie/:filename' component={MovieDetails}/>
       <Route exact path='/' component={Home}/>
+      <Route exact path='/settings' component={Settings}/>
       <Route component={NotFound}/>
     </Switch>
   </main>

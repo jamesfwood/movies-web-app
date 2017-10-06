@@ -13,3 +13,26 @@
     margin: 5px;
 }
 */
+
+
+.genreModalList { 
+   // background: red;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    .genreBox {
+     //   background-color: #79B48B;
+        margin: 3px 10px;
+        display: flex;
+        align-items: center;
+        color: black;
+        //width: 80px;
+
+        .genreBoxText {
+            margin: 5px;
+            width: 85px;
+            text-align: left;
+        }
+    }
+}

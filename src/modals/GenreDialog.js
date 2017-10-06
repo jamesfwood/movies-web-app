@@ -5,6 +5,8 @@ import { updateGenre, updateAllGenres } from '../actions/'
 
 
 import '../styles/css/modal.css'
+import '../styles/css/buttons.css'
+import '../styles/css/GenreModal.css'
 
 class GenreDialog extends React.Component {
     
@@ -26,6 +28,17 @@ class GenreDialog extends React.Component {
             this.forceUpdate()      // TODO: Why is this needed??
         }
 
+        /*
+        
+                    <!--
+                            <label key={g.name} htmlFor={g.name}>
+                            <input type="checkbox" id={g.name} value={g.name} checked={g.display} onChange={this.handleGenre}/>
+                            
+                            {g.name}
+                            </label>
+ -->
+ */
+
     render () {
 
         const { genres } = this.props;
@@ -42,24 +55,26 @@ class GenreDialog extends React.Component {
                         <div className="modal-body">
                         
                         <div>
-                    <button onClick={() => this.handleGenreOnOff(true)}>Set All ON</button>
-                    <button onClick={() => this.handleGenreOnOff(false)}>Set All OFF</button>
+                    <button className="button" onClick={() => this.handleGenreOnOff(true)}>Set All ON</button>
+                    <button className="button" onClick={() => this.handleGenreOnOff(false)}>Set All OFF</button>
                     </div>
                     <hr/>
-                   
+                    
+                    <div className="genreModalList">
                     {
                         genres.map( g =>
                          
-                                
-                                <label key={g.name} className='onoffswitch-label' htmlFor={g.name}>
-                                <input className="onoffswitch-checkbox" type="checkbox" id={g.name} value={g.name} checked={g.display} onChange={this.handleGenre}/>
-                                
-                                {g.name}
-                                </label>
-                               
-                          
+                            
+                            <div key={g.name} className="genreBox">
+                        <label className="switch" htmlFor={g.name}>
+                            <input type="checkbox" id={g.name} value={g.name} checked={g.display} onChange={this.handleGenre} />
+                            <span className="slider round"></span>
+                        </label><div className="genreBoxText">{g.name}</div>
+                    </div>
+
                         )
                     }
+                    </div>
 
                         </div>
                         <div className="modal-footer">

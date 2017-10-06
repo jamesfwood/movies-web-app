@@ -15,7 +15,7 @@ function convertMillis(millis) {
     return hours + "h " + minutes + "min";
 }
 
-const MovieTile = ({movie, history}) => {
+const MovieTile = ({movie, history, width}) => {
     
     const runtime = convertMillis(movie.duration);
     let mpaa = "Not Rated";
@@ -34,10 +34,14 @@ const MovieTile = ({movie, history}) => {
 
     const detailsLink = '/movie/' + encodeURIComponent(movie.filename)
 
+    const style = {
+        width
+    }
+
     return (
-        <article className="movieTile">
+        <article className="movieTile" style={style}>
             <div>
-                <img className="movieImg" src={'https://image.tmdb.org/t/p/w342' + movie.tmdb.poster_path} alt="Poster"/>
+                <img className="movieImg" style={style} src={'https://image.tmdb.org/t/p/w342' + movie.tmdb.poster_path} alt="Poster"/>
             </div>
             <div className="movieDetails">
                 <div>{movie.imdb.title} ({movie.imdb.year})</div>

@@ -9,7 +9,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         color: #FFFFFF;
-        background-color: #84AECD;
+        background-color: #2B2B2B;
         position: fixed;
         width: 100%;
         justify-content: flex-start;
@@ -19,14 +19,16 @@
             background: url(../../images/hamburger-blue.svg) no-repeat center;
             background-size: contain;
             display: inline-block;
-            height: 50px;
-            width: 54px;
+            height: 45px;
+            width: 58px;
         }
 
         .summaryItem {
-            background-color: #8988B4;
-            padding: 10px 1rem;
+            background-color: #424242;
+            padding: 6px 1rem;
             margin: 2px;
+            border-radius: 10px;
+            color: #BEBEBE;
         }
     }
 
