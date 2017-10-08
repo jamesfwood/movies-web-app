@@ -160,7 +160,7 @@ class ListControls extends React.Component {
     //document.body.style.overflow-y = 'hidden'
 
     render() {
-        const { filters, changeSortOrder, sortBy, sortByValue, movieCount } = this.props
+        const { filters, changeSortOrder, sortBy, sortByValue, totalCount, totalHours, displayMovieCount, displayTotalHours } = this.props
         
         let displayAll = true
 
@@ -221,12 +221,14 @@ class ListControls extends React.Component {
                     </div>
 
                     <div className="sortBy">Sort By
+                        <div className="select">
                         <select value={sortByValue} onChange={ e => sortBy(e.target.value)}>
                             { 
                                 filters.sortTypes.map( s => 
                                     <option key={s.value} value={s.value}>{s.name}</option>)
                             }
                         </select>
+                        </div>
                     </div>
                 </div>
                 
@@ -259,8 +261,14 @@ class ListControls extends React.Component {
                 </div>
 
                 <div className="statsPanel">
-                    <div className="title">Stats</div>
-                    <div>Movie Count: {movieCount}</div>
+                    <div className="title">Statistics</div>
+                    <div className="statsItem">
+                        <div>Displaying: {displayMovieCount} ({displayTotalHours} hrs)</div>
+                    </div>
+                    <div className="statsItem">
+                        <div>Total: {totalCount} ({totalHours}hrs)</div>
+                    </div>
+
                 </div>
 
             </section>
@@ -269,6 +277,16 @@ class ListControls extends React.Component {
 }
 
 const mapStateToProps = state => {
+
+    let totalHours = 0, totalCount = 0
+    for (const movie of state.movies) {
+        if (movie.imdb) {
+            totalHours += movie.duration
+            totalCount++
+        }
+    }
+
+    totalHours = Math.round(totalHours / 1000 / 60 / 60 * 10) / 10
 
     let range = { min: Number.MAX_VALUE, max: 0 }
     
@@ -285,7 +303,9 @@ const mapStateToProps = state => {
     return {
         runtimeRange: range,
         filters: state.filters,
-        sortByValue: state.filters.sortBy
+        sortByValue: state.filters.sortBy,
+        totalHours,
+        totalCount
     }
 }
 

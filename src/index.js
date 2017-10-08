@@ -4,13 +4,12 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 
 import store, { history } from './store'
-import { fetchMovies, setTmdbApiKey, addMovies } from './actions/'
+import { fetchMovies, setTmdbApiKey, addMovies, updateOrientation } from './actions/'
 
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 import './styles/css/index.css';
-
 
 store.subscribe( () => {
 
@@ -18,7 +17,6 @@ store.subscribe( () => {
 
   console.log("Changed state", state);
 });
-
 
 const loadMovies = () => {
 
@@ -46,6 +44,22 @@ const loadMovies = () => {
   }
 }
 
+function orientationChanged() {
+
+  if (Math.abs(window.orientation) === 90) {
+    store.dispatch(updateOrientation('landscape'))
+  }
+  else {
+    store.dispatch(updateOrientation('portrait'))
+  }
+  
+}
+
+if (window.orientation) {
+  orientationChanged()
+
+  window.addEventListener("orientationchange", orientationChanged)
+}
 
 loadMovies()
 

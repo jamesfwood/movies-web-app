@@ -23,6 +23,13 @@ export const clearList = () => {
   }
 }
 
+export const updateOrientation = (orientation) => {
+  return {
+    type: 'UPDATE_ORIENTATION',
+    orientation
+  }
+}
+
 export const addMovie = (movie) => {
   return {
     type: 'ADD_MOVIE',

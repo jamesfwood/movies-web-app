@@ -5,11 +5,17 @@ const initalState = {
     nMoviesAcross: 4,
     user: 'jamesfwood@hotmail.com',
     tmdbApiKey: '',
-    showControlPanel: false
+    showControlPanel: false,
+    orientation: 'N/A'
 }
 
 const appReducer = (state = initalState, action) => {
   switch (action.type) {
+    case 'UPDATE_ORIENTATION':
+        return {
+            ...state,
+            orientation: action.orientation
+        }
     case 'SHOW_CONTROL_PANEL':
         return {
             ...state,

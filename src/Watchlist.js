@@ -8,15 +8,13 @@ import WatchSummary from './WatchSummary'
 import './styles/css/Watchlist.css';
 
 class Watchlist extends React.Component {
-
+/*
   constructor() {
     super();
-    this.state = {
-      tileWidth:  185
-    }
 
     //this.updateDimensions = this.updateDimensions.bind(this)
   }
+*/
 
 
   //updateDimensions() {
@@ -52,6 +50,7 @@ class Watchlist extends React.Component {
   componentDidMount() {
    // this.updateDimensions()
    // window.addEventListener("resize", this.updateDimensions)
+
   }
 
   /**
@@ -62,25 +61,48 @@ class Watchlist extends React.Component {
    // console.log('destroying watchlist')
 
    // window.removeEventListener("resize", this.updateDimensions)
+    //window.removeEventListener("orientationchange", this.updateOrientation)
   }
 
   render() {
 
-    const {movies, showControlPanel} = this.props
+    const {movies, showControlPanel, orientation} = this.props
+
+    let tileWidth = 185
+    
+    if (orientation === 'landscape' && !showControlPanel) {
+        tileWidth = 188.9
+    }
+    else if (orientation === 'portrait') {
+
+      if (showControlPanel) {
+        tileWidth = 166
+      }
+      else {
+        tileWidth = 176
+      }
+    }
+
+    let totalHours = 0
+    for (const movie of movies) {
+      totalHours += movie.duration
+    }
+
+    totalHours = Math.round(totalHours / 1000 / 60 / 60 * 10) / 10
 
     return (
       <div className="watchlist">
         { 
-          showControlPanel && <ListControls movieCount={movies.length}/>
+          showControlPanel && <ListControls displayMovieCount={movies.length} displayTotalHours={totalHours}/>
         }
         <section>
           {
-            !showControlPanel && <WatchSummary movieCount={movies.length}/>
+            !showControlPanel && <WatchSummary movieCount={movies.length} totalHours={totalHours}/>
           }
             <div className={ showControlPanel ? "movieList" : "movieList2" }>
               {
                 movies.map( movie =>
-                  <MovieTile key={movie.filename} movie={movie} width={this.state.tileWidth} />
+                  <MovieTile key={movie.filename} movie={movie} width={tileWidth} />
                 )
               }
             </div>
@@ -92,7 +114,8 @@ class Watchlist extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    showControlPanel: state.app.showControlPanel
+    showControlPanel: state.app.showControlPanel,
+    orientation: state.app.orientation
   }
 }
 

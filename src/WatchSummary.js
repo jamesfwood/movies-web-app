@@ -24,7 +24,7 @@ class WatchSummary extends React.Component {
 
   render() {
 
-    const { movieCount } = this.props
+    const { movieCount, totalHours } = this.props
 
     const sortMessage = () => {
 
@@ -80,7 +80,7 @@ class WatchSummary extends React.Component {
     <div className='watchsummary'>
       <div className='summaryOnOff' onClick={this.handleShowControlPanel}></div>
       <div className='summaryItem'>{ sortMessage() }</div>
-      <div className='summaryItem'>Displaying: { movieCount }</div>
+      <div className='summaryItem'>Displaying: { movieCount } ({totalHours} hrs)</div>
       <div className='summaryItem'>Genres: { genreMessage() }</div>
       <div className='summaryItem'>Runtime: { displayRuntimeRange() }</div>
     </div>
