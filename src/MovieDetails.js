@@ -55,9 +55,13 @@ class MovieDetails extends React.Component {
                 <div>
                 <img className="movieImg" src={'https://image.tmdb.org/t/p/w154' + movie.tmdb.poster_path} alt="Poster"/>
                 </div>
-                <div>{movie.imdb.title} ({movie.imdb.year})</div>
-                <div>IMDB Rating: {movie.imdb.rating}</div>
-           
+                <div>{movie.omdb.Title} ({movie.omdb.Year})</div>
+                <div>IMDB Rating: {movie.omdb.imdbRating}</div>
+                <br/>
+                <div>Plot: {movie.omdb.Plot}</div>
+                <br/>
+                <div>Overview: {movie.tmdb.overview}</div>
+                <br/>
                 <div>Filename: {movie.filename}</div>
                 { renderVideoLink() }
             </div>

@@ -50,6 +50,12 @@ export const setTmdbApiKey = (key) => {
     key
   }
 }
+export const setOmdbApiKey = (key) => {
+  return {
+    type: 'SET_OMDB_API_KEY',
+    key
+  }
+}
 
 export const fetchVideos = (tmdb_id, tmdbApiKey) => {
   return {
@@ -82,11 +88,11 @@ export const updateGenre = (name, display) => {
     }
 }
 
-export var updateMovie = (filename, imdb, tmdb) => {
+export var updateMovie = (filename, omdb, tmdb) => {
     return {
         type: 'UPDATE_MOVIE',
         filename,
-        imdb,
+        omdb,
         tmdb
     }
 }

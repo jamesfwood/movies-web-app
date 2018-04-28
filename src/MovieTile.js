@@ -18,24 +18,31 @@ function convertMillis(millis) {
 const MovieTile = ({movie, history, width}) => {
     
     const runtime = convertMillis(movie.duration);
-    let mpaa = "Not Rated";
+    //let mpaa = "Not Rated";
 
-    if (movie.imdb.mpaa_rating) {
-        mpaa = movie.imdb.mpaa_rating
-    }
+    //if (movie.imdb.mpaa_rating) {
+    //    mpaa = movie.imdb.mpaa_rating
+    //}
 
-    let genre = "";
+    //let genre = "";
 
-    for (let i = 0; i < movie.imdb.genres.length && i <= 2; i++) {
-        genre += movie.imdb.genres[i] + ', '
-    }
+    //for (let i = 0; i < movie.imdb.genres.length && i <= 2; i++) {
+    //    genre += movie.imdb.genres[i] + ', '
+    //}
     
-    genre = genre.slice(0, -2);
+    //genre = genre.slice(0, -2);
 
     const detailsLink = '/movie/' + encodeURIComponent(movie.filename)
 
     const style = {
         width
+    }
+
+    const rottenTomatoes = () => {
+        const rating = movie.omdb.Ratings.find( m => m.Source === "Rotten Tomatoes")
+
+        if (rating)
+            return ("| " + rating.Value)
     }
 
     return (
@@ -44,9 +51,9 @@ const MovieTile = ({movie, history, width}) => {
                 <img className="movieImg" style={style} src={'https://image.tmdb.org/t/p/w342' + movie.tmdb.poster_path} alt="Poster"/>
             </div>
             <div className="movieDetails">
-                <div>{movie.imdb.title} ({movie.imdb.year})</div>
-                <div>{mpaa} | {runtime} | {movie.imdb.rating}</div>
-                <div>{genre}</div>
+                <div>{movie.omdb.Title} ({movie.omdb.Year})</div>
+                <div>{movie.omdb.Rated} | {runtime} | {movie.omdb.imdbRating} {rottenTomatoes()} </div>
+                <div>{movie.omdb.Genre}</div>
             </div>
             <div className="movieSelected">
                 <button onClick={() => history.push(detailsLink)}>Details</button>

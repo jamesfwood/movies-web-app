@@ -15,7 +15,8 @@
     "react-scripts": "1.0.14",
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6",
-    "themoviedb-javascript-library": "^1.0.0"
+    "themoviedb-javascript-library": "^1.0.0",
+    "victory": "^0.24.0"
   },
   "scripts": {
     "deploy": "yarn run build && aws s3 sync build/ s3://movies-web-app --exclude *.map --delete",

@@ -280,7 +280,7 @@ const mapStateToProps = state => {
 
     let totalHours = 0, totalCount = 0
     for (const movie of state.movies) {
-        if (movie.imdb) {
+        if (movie.omdb) {
             totalHours += movie.duration
             totalCount++
         }

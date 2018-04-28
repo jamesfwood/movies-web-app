@@ -61,7 +61,7 @@ const Unmatched = ({movies, failedMovies}) => (
 const mapStateToProps = state => {
   return {
     movies: state.movies.filter( movie => { return !movie.tmdb }),
-    failedMovies: state.movies.filter( movie => { return movie.imdb === null })
+    failedMovies: state.movies.filter( movie => { return movie.omdb === null })
   }
 }
 

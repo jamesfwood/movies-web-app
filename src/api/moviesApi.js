@@ -7,7 +7,7 @@ const MOVIE_URL = 'https://fqovjplf1b.execute-api.us-west-2.amazonaws.com/prod/m
 
 const MOVIE_APP_URL = 'https://fqovjplf1b.execute-api.us-west-2.amazonaws.com/prod/app';
 
-const IMDB_URL = 'http://35.165.93.15:9000/imdb/api/v1.0/movie';
+//const IMDB_URL = 'http://35.165.93.15:9000/imdb/api/v1.0/movie';
 
 const fetchJson = url => {
   return fetch(url)
@@ -88,6 +88,15 @@ export const getMovie = (filename) =>  {
   }
 */
 
+export function getOmdb(imdb_id, apiKey) {
+
+  const requestUrl = `http://www.omdbapi.com/?i=${imdb_id}&apikey=${apiKey}`
+
+  console.log("called moviesApi:getOmdb", imdb_id)
+
+  return fetchJson(requestUrl)
+}
+/*
 export const getImdb = (imdb_id) => {
 
   const requestUrl = `${IMDB_URL}/${imdb_id}`
@@ -96,14 +105,15 @@ export const getImdb = (imdb_id) => {
 
   return fetchJson(requestUrl)
 }
+*/
 
-export const updateTheMovieDbIDs = (filename, imdb, tmdb) => {
+export const updateTheMovieDbIDs = (filename, omdb, tmdb) => {
 
     var requestUrl = MOVIE_URL;
 
     var body = {
       filename,
-      imdb,
+      omdb,
       tmdb
     };
 

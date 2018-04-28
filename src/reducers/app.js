@@ -5,6 +5,7 @@ const initalState = {
     nMoviesAcross: 4,
     user: 'jamesfwood@hotmail.com',
     tmdbApiKey: '',
+    omdbApiKey: '',
     showControlPanel: false,
     orientation: 'N/A'
 }
@@ -42,7 +43,12 @@ const appReducer = (state = initalState, action) => {
             ...state,
             tmdbApiKey: action.key
         }
-        
+
+    case 'SET_OMDB_API_KEY':
+        return {
+            ...state,
+            omdbApiKey: action.key
+        }
     default:
       return state;
   }

@@ -3,22 +3,22 @@ import Watchlist from './Watchlist'
 
 const sortTitleAsc = (a, b) => {
 
-    const titleA = a.imdb.title.replace(/^(The )/, '')
-    const titleB = b.imdb.title.replace(/^(The )/, '')
+    const titleA = a.omdb.Title.replace(/^(The )/, '')
+    const titleB = b.omdb.Title.replace(/^(The )/, '')
 
     if (titleA === titleB)
-        return a.imdb.year - b.imdb.year;
+        return a.omdb.Year - b.omdb.Year
 
     return titleA.toLowerCase() < titleB.toLowerCase() ? -1 : 1;
 }
 
 const sortTitleDesc = (a, b) => {
 
-    const titleA = a.imdb.title.replace(/^(The )/, '')
-    const titleB = b.imdb.title.replace(/^(The )/, '')
+    const titleA = a.omdb.Title.replace(/^(The )/, '')
+    const titleB = b.omdb.Title.replace(/^(The )/, '')
 
     if (titleA === titleB)
-        return b.imdb.year - a.imdb.year;
+        return b.omdb.Year - a.omdb.Year
 
     return titleB.toLowerCase() < titleA.toLowerCase() ? -1 : 1;
 }
@@ -41,10 +41,10 @@ const sortDurationDesc = (a, b) => {
 }
 
 const sortImdbRatingAsc = (a, b) => {
-    return a.imdb.rating - b.imdb.rating;
+    return a.omdb.imdbRating - b.omdb.imdbRating;
 }
 const sortImdbRatingDesc = (a, b) => {
-    return b.imdb.rating - a.imdb.rating;
+    return b.omdb.imdbRating - a.omdb.imdbRating;
 }
 
 const sortBudgetAsc = (a, b) => {
@@ -59,7 +59,7 @@ const getVisibleMovies = (movies, filters) => {
 
     const movieList = movies.filter( m => {
 
-        if (!m.imdb) return false
+        if (!m.omdb) return false
 
         if (m.duration / 1000 / 60 < filters.runtimeRange[0]) return false
         
@@ -70,7 +70,9 @@ const getVisibleMovies = (movies, filters) => {
             if (!g.display)
                 continue
 
-            for (const genre of m.imdb.genres) {
+            const genres = m.omdb.Genre.split(', ')
+
+            for (const genre of genres) {
                 if (g.name === genre) {
                     return true
                 }

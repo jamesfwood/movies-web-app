@@ -4,7 +4,7 @@ import {withRouter} from 'react-router-dom'
 
 import theMovieDb from 'themoviedb-javascript-library'
 
-import { getImdb, updateTheMovieDbIDs, getMovieDetails } from './api/moviesApi'
+import { getOmdb, updateTheMovieDbIDs, getMovieDetails } from './api/moviesApi'
 
 import { updateMovie } from './actions/'
 import { AcceptButton } from './Buttons'
@@ -119,7 +119,7 @@ class MatchMovie extends React.Component {
         if (searchDetails.title !== '') {
             const self = this
 
-            theMovieDb.common.api_key = this.props.apiKey
+            theMovieDb.common.api_key = this.props.tmdbApiKey
 
             theMovieDb.search.getMovie({query: searchDetails.title, include_adult: false, year: searchDetails.year  }, (res) => {
                 var result = JSON.parse(res);
@@ -146,15 +146,15 @@ class MatchMovie extends React.Component {
 
     handleAcceptClick = (tmdb_id) => {
         
-        const {movie, updateMovie, apiKey} = this.props
+        const {movie, updateMovie, tmdbApiKey, omdbApiKey} = this.props
         const self = this
 
         this.setState( { tmdb_id,
-                        apiKey } )
+            tmdbApiKey } )
 
 
         // TODO: Do this with yield??
-        getMovieDetails(tmdb_id, apiKey).then( tmdb => {
+        getMovieDetails(tmdb_id, tmdbApiKey).then( tmdb => {
 
             self.setState( {debug: 'I am done with getMovieDetails!!!'} )
 
@@ -168,25 +168,23 @@ class MatchMovie extends React.Component {
 
             console.log("tmdb", tmdb)
 
-            const imdb_id = tmdb.imdb_id.substring(2)
+            getOmdb(tmdb.imdb_id, omdbApiKey).then( omdb => {
 
-            getImdb(imdb_id).then( imdb => {
+                self.setState( {omdb: JSON.stringify(omdb)} )
 
-                self.setState( {imdb: JSON.stringify(imdb)} )
-
-                removeNulls(imdb)
+                //removeNulls(imdb)
 
                 //Object.keys(imdb).forEach( key => !imdb[key] && delete imdb[key] )
 
-                console.log("imdb", imdb)
+                console.log("omdb", omdb)
 
-                updateTheMovieDbIDs(movie.filename, imdb, tmdb).then( updatedMovie => {
+                updateTheMovieDbIDs(movie.filename, omdb, tmdb).then( updatedMovie => {
 
                     self.setState( {updatedMovie: JSON.stringify(updatedMovie)} )
 
                     console.log("updatedMovie", updatedMovie)
 
-                    updateMovie(updatedMovie.filename, imdb, tmdb)
+                    updateMovie(updatedMovie.filename, omdb, tmdb)
                 })
             })
         })
@@ -227,12 +225,12 @@ class MatchMovie extends React.Component {
             }
         }
 
-        const renderImdbDebug = () => {
+        const renderOmdbDebug = () => {
 
-            if (this.state.imdb) {
+            if (this.state.omdb) {
                 return (
-                    <div>IMDb:
-                        <a>{this.state.imdb}</a>
+                    <div>OMDb:
+                        <a>{this.state.omdb}</a>
                     </div>
                 )
             }
@@ -255,7 +253,7 @@ class MatchMovie extends React.Component {
                 return (
                     <div>Clicked button!  
                         <a>tmdb_id: {this.state.tmdb_id}</a>
-                        <a>apiKey: {this.state.apiKey}</a>
+                        <a>apiKey: {this.state.tmdbApiKey}</a>
                     </div>
                 )
             }
@@ -275,7 +273,7 @@ class MatchMovie extends React.Component {
                     <h3>{movie.filename}</h3>
                     <p>Duration: {convertMillis(movie.duration)}</p>
                     <p>The Movie DB ID is now: {movie.tmdb.id}</p>
-                    <p>IMDB ID is now: {movie.imdb.id}</p>
+                    <p>IMDB ID is now: {movie.omdb.imdbID}</p>
                     <button onClick={() => history.push(detailsLink)}>Go to Movie Details</button>
                 </div>
             )
@@ -308,7 +306,7 @@ class MatchMovie extends React.Component {
                                 { renderDebug() }
                                 { renderAcceptedDebug() }
                                 { renderTmdbDebug() }
-                                { renderImdbDebug() }
+                                { renderOmdbDebug() }
                                 { renderUpdatedDebug() }
                             </div>
                             </li>
@@ -327,7 +325,8 @@ const mapStateToProps = (state, {match}) => {
 
     return {
         movie: state.movies.find(m => m.filename === filename),
-        apiKey: state.app.tmdbApiKey
+        tmdbApiKey: state.app.tmdbApiKey,
+        omdbApiKey: state.app.omdbApiKey
     }
 }
 

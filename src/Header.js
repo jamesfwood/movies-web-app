@@ -15,6 +15,7 @@ const Header = () => (
                 <ul className="navbar">
                     <li><NavLink exact to='/' activeClassName="active">Home</NavLink></li>
                     <li><NavLink exact to='/watchlist' activeClassName="active">Watchlist</NavLink></li>
+                    <li><NavLink exact to='/charting' activeClassName="active">Charting</NavLink></li>
                     <li><NavLink to='/unmatched' activeClassName="active">Unmatched List</NavLink></li>
                     <li><NavLink to='/settings' activeClassName="active">Settings</NavLink></li>
                 </ul>

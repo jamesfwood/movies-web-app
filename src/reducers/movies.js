@@ -36,7 +36,7 @@ const moviesReducer = (state = [], action) => {
 
                 return {
                     ...movie,
-                    imdb: action.imdb,
+                    omdb: action.omdb,
                     tmdb: action.tmdb
                 }
             }

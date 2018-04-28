@@ -1,15 +1,18 @@
 import { put, takeLatest, call, all } from 'redux-saga/effects'
 import { getList, getMovie, getVideoDetails, getAppSettings } from './api/moviesApi'
-import { addMovies, addMovie, addVideos, setTmdbApiKey } from './actions/'
+import { addMovies, addMovie, addVideos, setTmdbApiKey, setOmdbApiKey } from './actions/'
 
 function* fetchMovies () {
   try {
     const [data, app] = yield all([getList(), call(getAppSettings)])
 
+    console.log('app', app)
+    
     localStorage.setItem('movies-list', JSON.stringify(data))
     localStorage.setItem('movies-app-settings', JSON.stringify(app))
     
     yield put(setTmdbApiKey(app[0].tmdbApiKey))
+    yield put(setOmdbApiKey(app[0].omdbApiKey))
 
     let movies = []
 

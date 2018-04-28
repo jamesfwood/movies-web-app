@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 
 import store, { history } from './store'
-import { fetchMovies, setTmdbApiKey, addMovies, updateOrientation } from './actions/'
+import { fetchMovies, setTmdbApiKey, setOmdbApiKey, addMovies, updateOrientation } from './actions/'
 
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
@@ -25,6 +25,7 @@ const loadMovies = () => {
 
   if (list && app) {
     store.dispatch(setTmdbApiKey(app[0].tmdbApiKey))
+    store.dispatch(setOmdbApiKey(app[0].omdbApiKey))
 
     let movies = []
 
